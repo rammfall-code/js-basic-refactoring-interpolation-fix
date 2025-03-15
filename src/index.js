@@ -1,20 +1,53 @@
 // Questioner
 
-const firstName = prompt('Your name');
-const lastName = prompt('Your last name');
-const age = prompt('Your age');
+function askInfo(message) {
+  let name;
 
-alert('Hi, ' + firstName + ' ' + lastName + ', your age is ' + age);
+  do {
+    name = prompt(message);
 
-const company = prompt('Enter your company');
-const role = prompt('Enter your role');
-const salary = prompt('Enter you salary');
+    if (name === null) {
+      return null;
+    }
+  } while (name.trim() === '' || /\d/.test(name));
 
-alert('You work in ' + company + '. Your position is ' + role + ' with salary' + ' ' + salary + '$.');
+  return name;
+}
 
-const country = prompt('Enter your country');
-const city = prompt('Enter your city');
-const street = prompt('Enter your street');
-const houseNumber = prompt('Enter your house number');
+function askInfoNumber(message) {
+  let number;
 
-alert('You live in ' + country + ' on city ' + city + '. ' + 'Your street is ' + street + ' in house ' + houseNumber + '.');
+  do {
+    number = prompt(message);
+
+    if (number === null) {
+      return null;
+    }
+  } while (isNaN(number) || number.trim() === '');
+
+  return +number;
+}
+
+function questioner() {
+  const firstName = askInfo('Your name');
+
+  if (firstName === null) {
+    alert('you cancelled');
+    return;
+  }
+
+  const lastName = askInfo('Your last name');
+  if (lastName === null) {
+    alert('you cancelled');
+    return;
+  }
+
+  const age = askInfoNumber('Your age');
+  if (age === null) {
+    alert('you cancelled');
+    return;
+  }
+  alert(`Hi, ${firstName} ${lastName}, your age is ${age}`);
+}
+
+questioner();
